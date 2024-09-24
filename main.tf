@@ -102,3 +102,64 @@ resource "aws_nat_gateway" "main" {
   # on the Internet Gateway for the VPC.
   depends_on = [aws_internet_gateway.main]
 }
+
+#public route table and subnet association
+resource "aws_route_table" "public" {
+  vpc_id     = aws_vpc.main.id
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.main.id
+  }
+
+  tags = merge(
+    var.common_tags,
+    var.public_route_tags,
+    {
+    Name = "${local.resource_name}-public"
+    }
+  )
+}
+resource "aws_route_table_association" "public" {
+  count = length(var.public_subnet_cidrs)
+
+  subnet_id      = element(aws_subnet.public.*.id, count.index)
+  route_table_id = aws_route_table.public.id
+}
+
+#private route table and subnet association
+resource "aws_route_table" "private" {
+  vpc_id     = aws_vpc.main.id
+    
+  tags = merge(
+    var.common_tags,
+    var.private_route_tags,
+    {
+    Name = "${local.resource_name}-private"
+    }
+  )
+}
+resource "aws_route_table_association" "private" {
+  count = length(var.private_subnet_cidrs)
+
+  subnet_id      = element(aws_subnet.private.*.id, count.index)
+  route_table_id = aws_route_table.private.id
+}
+
+#database route table and subnet association
+resource "aws_route_table" "database" {
+  vpc_id     = aws_vpc.main.id
+    
+  tags = merge(
+    var.common_tags,
+    var.database_route_tags,
+    {
+    Name = "${local.resource_name}-database"
+    }
+  )
+}
+resource "aws_route_table_association" "database" {
+  count = length(var.database_subnet_cidrs)
+
+  subnet_id      = element(aws_subnet.database.*.id, count.index)
+  route_table_id = aws_route_table.database.id
+}

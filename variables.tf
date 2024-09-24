@@ -25,8 +25,11 @@ variable "vpc_tags"{
 variable "igw_tags"{
     default={}
 }
-
+#public variables
 variable "public_subnet_tags"{
+    default={}
+}
+variable "public_route_tags"{
     default={}
 }
 variable "public_subnet_cidrs"{
@@ -36,8 +39,11 @@ variable "public_subnet_cidrs"{
         error_message= "Enter any 2 valid cidr values for public subnet"
     }
 }
-
+#private variables
 variable "private_subnet_tags"{
+    default={}
+}
+variable "private_route_tags"{
     default={}
 }
 variable "private_subnet_cidrs"{
@@ -47,14 +53,16 @@ variable "private_subnet_cidrs"{
         error_message= "Enter any 2 valid cidr values for private subnet"
     }
 }
-
+#database variables
 variable "database_subnet_tags"{
     default={}
 }
 variable "database_subnet_group_tags"{
     default={}
 }
-
+variable "database_route_tags"{
+    default={}
+}
 variable "database_subnet_cidrs"{
     type= list    
     validation{
