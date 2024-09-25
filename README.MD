@@ -1,40 +1,70 @@
-# Terraform AWS VPC
+# Terraform AWS VPC Module Customised
+    This module is going to create the following resources. For High Availability we are going to get first 2 AZ
+* VPC
+* Internet Gateway associated with VPC
+* 2 Public subnets
+* 2 Private subnets
+* 2 Database subnets
+* Database subnet group
+* EIP
+* NAT Gateway
+* Public Route table
+* Private Route table
+* Database Route table
+* Routes
+* Route table associations with subnets
+* peering with default VPC (if required)
+* Peering routes in acceptor and requestor route tables    
 
-## Arguments
+## Inputs
 
-vpc_cidr(optional)- vpc_cidr default value is 10.0.0.0/16
+* project_name(Mandatory)- user must provide their project_name
 
-enable_dns_hostnames(Optional)-A boolean flag to enable/disable DNS hostnames in the VPC. Default is true
+* environment (Mandatory)-user must provide their e nvironment information.
 
-project_name(Mandatory)- This is of string type and user must provide project_name
+* vpc_cidr(Mandatory)- user must supply their vpc_cidr
 
-environment (Mandatory)- This is of string type and user must provide environment information.
+* enable_dns_hostnames(Optional)- Default is true
 
-public_subnet_cidrs(Mandatory)- This is of list type which allows 2 valid cidr values for public subnet resource
+* public_subnet_cidrs(Mandatory)- User must provide 2 valid cidr values for public subnet resource
 
-public_subnet_tags(Optional)- A map of tags to be assigned to a public subnet resource
+* public_subnet_tags(Optional)-Default is empty.User can supply tags in map format
 
-private_subnet_cidrs(Mandatory)- This is of list type which allows 2 valid cidr values for private subnet resource
+* public_route_table_tags(Optional)-Default is empty.User can supply tags in map format
 
-private_subnet_tags(Optional)- A map of tags to be assigned to a private subnet resource
+* private_subnet_cidrs(Mandatory)- User must provide 2 valid cidr values for private subnet resource
 
-database_subnet_cidrs(Mandatory)- This is of list type which allows 2 valid cidr values for database subnet resource
+* private_subnet_tags(Optional)- Default is empty.User can supply tags in map format
 
-database_subnet_tags(Optional)- A map of tags to be assigned to a database subnet resource
+* private_route_table_tags(Optional)- Default is empty.User can supply tags in map format
 
-database_subnet_group_tag(Optional)- A map of tags to be assigned to a database subnet group resource
+* database_subnet_cidrs(Mandatory)- User must provide 2 valid cidr values for database subnet resource
 
-common_tags(Optional)- A map of tags to be assigned to a resource
+* database_subnet_tags(Optional)-Default is empty.User can supply tags in map format
 
-vpc_tags(Optional)- A map of tags to be assigned to a vpc
+* database_subnet_group_tags(Optional)- Default is empty.User can supply tags in map format
 
-igw_tags(Optional)- A map of tags to be assigned to an internet gateway
+* database_route_table_tags(Optional)- Default is empty.User can supply tags in map format
 
-nat_gateway_tags(Optional)- A map of tags to be assigned to a NAT gateway
+* common_tags(Optional)- Default is empty.User can supply tags in map format
+
+* vpc_tags(Optional)- Default is empty.User can supply tags in map format
+
+* igw_tags(Optional)- Default is empty.User can supply tags in map format
+
+* nat_gateway_tags(Optional)-Default is empty.User can supply tags in map format
+
+* vpc_peering_tags(Optional)-Default is empty.User can supply tags in map format
+
+* is_peering_required(optional)- default is false.User must set to true if peering is required
 
 ## Outputs
 
-vpc_id -contains vpc_id of the vpc created
+* vpc_id: vpc_id of the vpc created
 
-az_info - contains information of all the availablity zones of the provider region 
+* public_subnet_ids: list of 2 public subnet id's created
+
+* private_subnet_ids: list of 2 private subnet id's created
+
+* database_subnet_ids: list of 2 database subnet id's created
 
