@@ -20,7 +20,7 @@
 
 * project_name(Mandatory)- user must provide their project_name
 
-* environment (Mandatory)-user must provide their e nvironment information.
+* environment (Mandatory)-user must provide their environment information.
 
 * vpc_cidr(Mandatory)- user must supply their vpc_cidr
 
