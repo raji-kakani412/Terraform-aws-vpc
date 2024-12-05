@@ -68,3 +68,5 @@
 
 * database_subnet_ids: list of 2 database subnet id's created
 
+* database_subnet_group_name: DB subnet group name created
+
